@@ -44,10 +44,42 @@
   margin: 0 auto;
 }
 
-.footer a {
+.footer button {
   padding: 1rem 2rem;
   background: #202024;
   border-radius: 6px;
 
   color: #996Dff;
+  background: transparent;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 120px;
+    border-radius: 8px;
+    color: #555;
+  }
+  
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    inset: 0;
+  }
+  
+  .closeModalButton {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 16px;
+  
+    background-color: #8257e5;
+    color: #FFF;
+  
+    font-size: 18px;
+    font-weight: bold;
+  
+    border-radius: 6px;
 }

@@ -1,9 +1,20 @@
+import * as Dialog from '@radix-ui/react-dialog';
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import LogoImg from '../assets/logo.svg';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if(modalOpen) {
+      modalRef?.current?.focus();
+    }
+  },[modalOpen])
+
   return (
     <>
     <Head>
@@ -43,11 +54,55 @@ export default function Home() {
         <Image src={LogoImg} width={286 / 2} alt="Rocketseat Blog" />
 
         <nav aria-label="Rodapé" className={styles.nav}>
-          <a href="https://github.com/ArthurKVasque07">
-            Termos de uso
-          </a>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <button>Termos de uso</button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className={styles.overlay}/>
+              <Dialog.Content className={styles.modal}>
+                <Dialog.Title>
+                  Termos de uso
+                </Dialog.Title>
+                <Dialog.Description>
+                  Esses são os termos de uso
+                </Dialog.Description>
+                <Dialog.Close asChild>
+                  <button className={styles.closeModalButton}>
+                    Fechar
+                  </button>
+                </Dialog.Close>
+              </Dialog.Content>              
+            </Dialog.Portal>
+          </Dialog.Root>
         </nav>
       </footer>
+
+      
+  
+
+      {/* Primeiro modelo de modal acessível, 'puro' */}
+
+      {/* <footer className={styles.footer}>
+        <Image src={LogoImg} width={286 / 2} alt="Rocketseat Blog" />
+
+        <nav aria-label="Rodapé" className={styles.nav}>
+          <button onClick={() => setModalOpen(true)} aria-controls="modal1">
+            Termos de uso
+          </button>
+        </nav>
+      </footer> */}
+
+      {/* {modalOpen && (
+        <div ref={modalRef} className={styles.modal} role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Description" tabIndex={-1}>
+          <h2 id="modal1Title">
+            Termos de uso
+          </h2>
+          <p id="modal1Description">
+            Esses são os termos de uso
+          </p>
+        </div>
+      )} */}
     </>
   )
 }
